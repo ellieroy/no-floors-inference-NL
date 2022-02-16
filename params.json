@@ -1,0 +1,100 @@
+{
+    "models_to_train": ["model_1"],
+    
+    "feature_selection_models": ["model_1"], 
+    
+    "tuned_models": {
+        "rfr": "model_1.2", 
+        "gbr": "model_1.4",
+        "svr": "model_1.5"
+    },  
+
+    "use_tuned_params": ["model_2", "model_3", "model_4", "model_5", "model_6"],
+    "best_estimator": "pipeline_model_1.4_gbr_tuned.joblib",
+
+    "features": {
+        "model_1": ["bag_construction_year", "bag_function", "bag_net_internal_area", "bag_no_units", "esri_building_type",
+                    "cbs_pop_per_km2", "cbs_percent_multihousehold", "cbs_cafe_avg_1km",
+                    "footprint_area", "footprint_perim", "footprint_no_vertices", "footprint_no_adjacent", "footprint_no_neighbours_100m",
+                    "h_50p", "h_70p", "h_max", "h_min", "lod22_href_diff", "bag3d_roof_type", 
+                    "lod12_area_walls", "lod12_area_roof", "lod12_volume", "lod22_area_walls", "lod22_area_roof", "lod22_volume"], 
+        "model_2": ["bag_construction_year", "bag_function", "bag_net_internal_area", "bag_no_units"], 
+        "model_3": ["footprint_area", "footprint_perim", "footprint_no_vertices", "footprint_no_adjacent", "footprint_no_neighbours_100m"], 
+        "model_4": ["h_70p", "h_50p", "h_max", "h_min", "lod12_area_walls", "lod12_area_roof", "lod12_volume"], 
+        "model_5": ["h_70p", "h_50p", "h_max", "h_min", "lod22_area_walls", "lod22_area_roof", "lod22_volume", "lod22_href_diff", "bag3d_roof_type"], 
+        "model_6": ["cbs_pop_per_km2", "cbs_percent_multihousehold", "cbs_cafe_avg_1km"]
+    },
+
+    "ml_algorithms": ["rfr", "gbr", "svr"], 
+    
+    "training_schema": "training_data",
+    "training_tables": ["c1_ams", "c2_rot", "c3_dhg", "c4_rho"], 
+    "case_study_schema": "case_study",
+    "case_study_tables": ["c5_dft", "c6_dwt", "c7_rhn"],
+
+    "id_column": "bag_id", 
+    "labels_column": "clean_floors", 
+    "text_columns": ["bag_function", "bag3d_roof_type", "esri_building_type"],
+
+    "gemeente_codes": {
+        "c1_ams": "0363", 
+        "c2_rot": "0599", 
+        "c3_dhg": "0518", 
+        "c4_rho": "1742", 
+        "c5_dft": "0503", 
+        "c6_dwt": "0274", 
+        "c7_rhn": "0613"
+    }, 
+
+    "lods": ["LOD12", "LOD22"],
+    "distance_adjacent": 0.1,
+    "distance_neighbours": [25, 50, 75, 100], 
+    "ceiling_height": 2.65,
+    "voxel_scales": {
+        "LOD12": 75,
+        "LOD22": 90
+    },
+    "class_threshold": 5,
+
+    "plot_labels": {
+        "clean_floors": "no. floors",
+        "footprint_perim": "footprint perimeter", 
+        "footprint_area": "footprint area", 
+        "footprint_no_vertices": "footprint no. vertices", 
+        "footprint_no_adjacent": "no. adjacent buildings", 
+        "footprint_no_neighbours_25m": "no. neighbours 25m", 
+        "footprint_no_neighbours_50m": "no. neighbours 50m",
+        "footprint_no_neighbours_75m": "no. neighbours 75m",
+        "footprint_no_neighbours_100m": "no. neighbours 100m", 
+        "cbs_percent_multihousehold": "percent multihousehold", 
+        "cbs_pop_per_km2": "population density", 
+        "cbs_supermarket_avg_1km": "avg. no. supermarkets in 1km", 
+        "cbs_shops_avg_1km": "avg. no. shops in 1km", 
+        "cbs_cafe_avg_1km": "avg. no. cafes in 1km", 
+        "cbs_supermarket_avg_dist": "avg. distance to supermarkets", 
+        "cbs_shops_avg_dist": "avg. distance to shops", 
+        "cbs_cafe_avg_dist": "avg. distance to cafes", 
+        "bag_construction_year": "construction year",
+        "bag_function": "building function",  
+        "bag_net_internal_area": "net internal area",  
+        "bag_no_units": "no. units", 
+        "esri_building_type_x0_apartment": "apartment", 
+        "esri_building_type_x0_terraced": "terraced",
+        "esri_building_type_x0_semi-detached": "semi-detached", 
+        "esri_building_type_x0_detached": "detached",
+        "h_50p": "building height (50p)", 
+        "h_70p": "building height (70p)", 
+        "h_max": "building height (max)", 
+        "h_min": "building height (min)", 
+        "lod22_href_diff": "ridge - eave height", 
+        "bag3d_roof_type_x0_single horizontal": "single horizontal roof", 
+        "bag3d_roof_type_x0_multiple horizontal": "multiple horizontal roof", 
+        "bag3d_roof_type_x0_slanted": "slanted roof", 
+        "lod12_area_walls": "wall surface area (lod1.2)",
+        "lod12_area_roof": "roof surface area (lod1.2)",
+        "lod12_volume": "volume (lod1.2)", 
+        "lod22_area_walls": "wall surface area (lod2.2)", 
+        "lod22_area_roof": "roof surface area (lod2.2)",
+        "lod22_volume": "volume (lod2.2)"
+    }
+}
