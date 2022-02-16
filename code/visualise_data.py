@@ -3,7 +3,7 @@ Reads training data from database into dataframe and visualises results using di
 
 """
 
-from os import path
+from os import makedirs, path
 import json, sys
 import db_functions
 import matplotlib.pyplot as plt
@@ -52,6 +52,10 @@ def no_floors_hist(conn):
 
     df_all = pd.concat(frames)
 
+    # Create directory for plot if not exists
+    if not directory_exists('./plots/histograms'): 
+        makedirs('./plots/histograms')
+
     df_all.hist(bins=np.arange(max(df_all.clean_floors)+2)-0.5, column=['clean_floors'], log=True, grid=False, edgecolor='white', linewidth=0.8, color='steelblue', figsize=[8.6, 4.8], alpha=0.7)
     x_ticks = np.arange(1, max(df_all.clean_floors)+1, 2)
     plt.xticks(x_ticks)
@@ -61,17 +65,7 @@ def no_floors_hist(conn):
     plt.savefig('plots/histograms/hist_floors_all.pdf', dpi=300)
     plt.close()
 
-    print('No. floors 90th percentile: {0}'.format(np.percentile(df_all.clean_floors, 90)))
-
-    for df in frames:
-
-        df.hist(bins=np.arange(max(df.clean_floors)+2)-0.5, column=['clean_floors'], log=True, grid=False, edgecolor='white', linewidth=0.8, color='steelblue', figsize=[8.6, 4.8], alpha=0.7)
-        x_ticks = np.arange(1, max(df.clean_floors)+1, 2)
-        plt.xticks(x_ticks)
-        plt.xlabel('Number of floors')
-        plt.ylabel('Count')
-        plt.title('')
-        plt.show()
+    print('\n>> No. floors 90th percentile: {0}'.format(np.percentile(df_all.clean_floors, 90)))
 
 
 def pie_chart_functions(conn, jparams):
@@ -107,10 +101,13 @@ def pie_chart_functions(conn, jparams):
 
     colours = sns.color_palette("Blues", len(labels))
 
+    # Create directory for plot if not exists
+    if not directory_exists('./plots/piecharts'): 
+        makedirs('./plots/piecharts')
+
     pie, ax = plt.subplots(figsize=[10,8])
     plt.pie(x=counts, autopct="%.1f%%", labels=labels, explode=[0.05]*len(labels), colors=colours, pctdistance=0.7)
-    # plt.show()
-    pie.savefig('plots/functions_all_data.pdf', dpi=300)
+    pie.savefig('plots/piecharts/functions_all_data.pdf', dpi=300)
 
     for table in jparams["training_tables"]: 
 
@@ -136,8 +133,7 @@ def pie_chart_functions(conn, jparams):
 
         pie, ax = plt.subplots(figsize=[10,8])
         plt.pie(x=counts, autopct="%.1f%%", labels=labels, explode=[0.05]*len(labels), colors=colours, pctdistance=0.7)
-        # plt.show()
-        pie.savefig('plots/functions_' + table + '.pdf', dpi=300)
+        pie.savefig('plots/piecharts/functions_' + table + '.pdf', dpi=300)
 
 
 def pie_chart_td_cities(conn, jparams):
@@ -170,16 +166,18 @@ def pie_chart_td_cities(conn, jparams):
     df_all = pd.concat(frames)
 
     counts = df_all.groupby("city")['bag_id'].count()
-    print(counts)
     labels = counts.keys()
+
+    # Create directory for plot if not exists
+    if not directory_exists('./plots/piecharts'): 
+        makedirs('./plots/piecharts')
 
     colours = sns.color_palette("Blues", len(labels))
 
     pie, ax = plt.subplots(figsize=[10,8])
     plt.rcParams.update({'font.size': 18})
     plt.pie(x=counts, autopct="%.1f%%", labels=labels, explode=[0.05]*len(labels), colors=colours, pctdistance=0.7)
-    plt.show()
-    pie.savefig('plots/td_city_split.pdf', dpi=300)
+    pie.savefig('plots/piecharts/td_city_split.pdf', dpi=300)
 
 
 def main(params):
