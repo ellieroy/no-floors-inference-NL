@@ -19,14 +19,16 @@ In addition, 25 features were derived from cadastral attributes, building geomet
 These features were tested in different combinations in order to determine whether a specific subset yielded better results. 
 Furthermore, a comparison was made between features derived from 3D building models at different levels of detail.
 
-An overview of the methdology used is provided by the flowchart below: 
+An overview of the methdology is provided by the flowchart below: 
 
 <p float="left">
-  <img src="./images/flowchart.jpg" width="90%"/> 
+  <img src="./images/flowchart.jpg" width="95%"/> 
 </p>
 
 ## Dependencies 
-The code was written in `Python (v3.9.7)` and a `PostgreSQL (v10.19)` database extended with `PostGIS (v3.0.1)` was used to store the data used during the analysis. The implementation depends on the following Python libraries: 
+The code was written in `Python (v3.9.7)`.
+A `PostgreSQL (v10.19)` database extended with `PostGIS (v3.0.1)` was used to store the data used during the analysis. 
+The implementation depends on the following Python libraries: 
 
 * [geopandas v0.9.0](https://pypi.org/project/geopandas/0.9.0/)
 * [pandas v1.3.1](https://pypi.org/project/pandas/1.3.1/)
@@ -41,7 +43,9 @@ The code was written in `Python (v3.9.7)` and a `PostgreSQL (v10.19)` database e
 * [seaborn v0.11.1](https://pypi.org/project/seaborn/0.11.1/)
 * [matplotlib v3.4.3](https://pypi.org/project/matplotlib/3.4.3/)
 * [tqdm v4.62.0](https://pypi.org/project/tqdm/4.62.0/)
-* [val3ditypy](https://github.com/tudelft3d/val3ditypy)
+* [val3ditypy v0.2](https://github.com/tudelft3d/val3ditypy/releases/tag/0.2)
+
+The conda environment used during this thesis can be recreated from the `environment.yml` file using the following command: `conda env create -f environment.yml`. However, the `val3ditypy` library must be installed separately (see installation details [here](https://github.com/tudelft3d/val3ditypy)). 
 
 ## Data
 
