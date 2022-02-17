@@ -19,15 +19,29 @@ In addition, 25 features were derived from cadastral attributes, building geomet
 These features were tested in different combinations in order to determine whether a specific subset yielded better results. 
 Furthermore, a comparison was made between features derived from 3D building models at different levels of detail.
 
+An overview of the methdology used is provided by the flowchart below: 
+
 <p float="left">
-  <img src="./images/flowchart.jpg"/> 
+  <img src="./images/flowchart.jpg" width="90%"/> 
 </p>
 
 ## Dependencies 
-The code was written in `Python (v3.9.7)`. The data used during the analysis was stored in a `PostgreSQL (v10.19)` database extended with `PostGIS (v3.0.1)`. The implementation depends on the following Python libraries: 
+The code was written in `Python (v3.9.7)` and a `PostgreSQL (v10.19)` database extended with `PostGIS (v3.0.1)` was used to store the data used during the analysis. The implementation depends on the following Python libraries: 
 
-* [geopandas v0.7.0](https://pypi.org/project/geopandas/)
-* [joblib v0.14.1](https://pypi.org/project/joblib/0.14.1/)
+* [geopandas v0.9.0](https://pypi.org/project/geopandas/0.9.0/)
+* [pandas v1.3.1](https://pypi.org/project/pandas/1.3.1/)
+* [numpy v1.21.2](https://pypi.org/project/numpy/1.21.2/)
+* [psycopg2 v2.9.1](https://pypi.org/project/psycopg2/2.9.1/)
+* [pyvista v0.31.3](https://pypi.org/project/pyvista/0.31.3/)
+* [scipy v1.7.1](https://pypi.org/project/scipy/1.7.1/)
+* [statsmodels v0.13.0](https://pypi.org/project/statsmodels/0.13.0/)
+* [scikit-learn v0.24.2](https://pypi.org/project/scikit-learn/0.24.2/)
+* [sklearn-pandas v2.2.0](https://pypi.org/project/sklearn-pandas/2.2.0/)
+* [joblib v1.1.0](https://pypi.org/project/joblib/1.1.0/)
+* [seaborn v0.11.1](https://pypi.org/project/seaborn/0.11.1/)
+* [matplotlib v3.4.3](https://pypi.org/project/matplotlib/3.4.3/)
+* [tqdm v4.62.0](https://pypi.org/project/tqdm/4.62.0/)
+* [val3ditypy](https://github.com/tudelft3d/val3ditypy)
 
 ## Data
 
