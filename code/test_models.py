@@ -1,5 +1,5 @@
 import json, sys
-import os.path
+import os
 import csv
 import numpy as np
 import pandas as pd
@@ -364,10 +364,10 @@ def main(params):
 
                 # Check if directories to save predictions exist
                 if not directory_exists('data/predictions'):
-                    os.mkdir('./data/predictions')
+                    os.makedirs('./data/predictions')
 
                 if not directory_exists('data/predictions/rounded'):
-                    os.mkdir('./data/predictions/rounded')
+                    os.makedirs('./data/predictions/rounded')
 
                 # Save predictions to csv
                 print('\n   >> Saving model predictions')
