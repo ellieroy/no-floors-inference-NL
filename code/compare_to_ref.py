@@ -214,7 +214,7 @@ def export_results(model_name, algorithm, tuning_description, jparams):
 
         # Check directory to save data exists
         if not directory_exists('./data/geojson'): 
-            os.mkdir('./data/geojson')
+            os.makedirs('./data/geojson')
 
         # Save to geojson
         all_data_test.to_file('./data/geojson/predictions_test.geojson', driver='GeoJSON')
