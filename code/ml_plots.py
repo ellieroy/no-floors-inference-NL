@@ -342,7 +342,7 @@ def plot_abs_error(y_true, y_pred, jparams, model, algorithm, tuning, train_test
 
     # Check directory to save plots exists
     if not directory_exists('./plots/mean_abs_error'): 
-        os.mkdir('./plots/mean_abs_error')
+        os.makedirs('./plots/mean_abs_error')
 
     abs_error = abs(y_true - np.rint(y_pred))
     abs_error.rename('abs_error', inplace=True)
