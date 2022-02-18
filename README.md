@@ -74,9 +74,9 @@ All data preparation steps can be performed by running: `python3 data_prep.py pa
 ### Modelling and prediction 
 
 * **Training**: `python3 train_models.py params.json` is used to train the models listed by the `models_to_train` parameter (see section below). 
-* **Feature selection**: `python3 select_features.py params.json` is used to select different feature subsets for the models listed by the `feature_selection_models` parameter (see section below). 
-* **Hyperparameter tuning**: `python3 tune_models.py params.json` is used to tune the hyperparameters of the models listed by the `tuned models` parameter (see section below). 
-* **Model evaluation**: `python3 test_models.py params.json` is used to make predictions on the test set and compute error metrics. 
+* **Feature selection**: `python3 select_features.py params.json` is used to select different feature subsets for the models listed by the `feature_selection_models` parameter (see section below). Each model is also trained on the different feature subsets. 
+* **Hyperparameter tuning**: `python3 tune_models.py params.json` is used to tune the hyperparameters of the models listed by the `tuned_models` parameter (see section below). 
+* **Model evaluation**: `python3 test_models.py params.json` is used to make predictions and compute error metrics on the test set. 
 
 ### Analysis 
 * **Visualise training data**: `python3 visualise_data.py params.json` is used to generate different plots to visualise the training data. 
@@ -91,7 +91,7 @@ The `params.json` file contains all parameters that can be set by the user. Thes
 
 * `models_to_train`: list of models to train
 * `feature_selection_models`: list of models to perform feature selection for
-* `tuned models`: name of model that should be tuned for each algorithm
+* `tuned_models`: name of model that should be tuned for each algorithm
 * `use_tuned_params`: list of models that should use the same hyperparameters as the best estimator
 * `best_estimator`: name of joblib file used to store the pipeline of the best estimator
 * `features`: list of features used by each model 
