@@ -45,46 +45,60 @@ The implementation depends on the following Python libraries:
 * [tqdm v4.62.0](https://pypi.org/project/tqdm/4.62.0/)
 * [val3ditypy v0.2](https://github.com/tudelft3d/val3ditypy/releases/tag/0.2)
 
-The conda environment used during this thesis can be recreated from the `environment.yml` file using the following command: `conda env create -f environment.yml`. However, the `val3ditypy` library must be installed separately (see installation details [here](https://github.com/tudelft3d/val3ditypy)). 
+The conda environment used during the project can be recreated from the `environment.yml` file using the following command: `conda env create -f environment.yml`. However, the `val3ditypy` library must be installed separately (see installation details [here](https://github.com/tudelft3d/val3ditypy)). 
 
-## Data
+## Datasets
 
 ## Usage
 
 ### Data preparation 
 
-* **Training data standardisation**: `get_train_data.py`
-* **Data retrieval**: `retrieve_data.py`
-* **Extract 2D features**: `extract_2d_features.py`
-* **Extract 3D features**: `extract_3d_features.py`
-* **Data cleaning**: `clean_data.py`
-* **Extract reference model**: `get_ref_model.py`
+* **Training data standardisation**: `get_train_data.py` is used to standardise the format of the training data on the number of floors obtained from different municipalities.
+* **Data retrieval**: `retrieve_data.py` is used to retrieve data from the datasets list above. This data is either used directly as features or required to compute other features (e.g. those based on building geometry). 
+* **Extract 2D features**: `extract_2d_features.py` is used to extract features from the 2D footprint geometry. 
+* **Extract 3D features**: `extract_3d_features.py` is used to extract features from the 3D building geometry.
+* **Data cleaning**: `clean_data.py` is used to perform the main data cleaning steps. 
+* **Extract reference model**: `get_ref_model.py` is used to calculate the number of floors using height- and area-based approaches to generate a reference model to compare the predictions to. 
 
-All data preparation steps can be performed by running `main.py`. 
+All data preparation steps can be performed by running: `python3 data_prep.py params.json`. 
 
 ### Modelling and prediction 
 
-* **Train models**: `train_models.py`
-* **Select feature subsets**: `select_features.py`
-* **Tune models**: `tune_models.py`
-* **Evaluate models**: `test_models.py`
+* **Training**: `python3 train_models.py params.json` is used to train the models listed by the `models_to_train` parameter (see section below)
+* **Feature selection**: `python3 select_features.py params.json` is used to select subsets of features using 3 different methods for the models listed by the `feature_selection_models` parameter (see section below)
+* **Hyperparameter tuning**: `python3 tune_models.py params.json` is used to tune the hyperparameters of the models listed by the `tuned models` parameter (see section below)
+* **Model evaluation**: `python3 test_models.py params.json` is used to make predictions on the test set and compute error metrics
 
 ### Analysis 
-* **Compute statistical measures**: `compute_stats.py`
-* **Analysis of results**: `analyse_results.py`
-* **Compare predictions to reference model**: `compare_to_ref.py`
-* **Case study analysis**: `case_study.py`
+* **Visualise training data**: `python3 visualise_data.py params.json`
+* **Compute statistical measures**: `python3 compute_stats.py params.json`
+* **Analysis of results**: `python3 analyse_results.py params.json` is used to generate plots to analyse the gross errors and impact of rounding 
+* **Compare predictions to reference model**: `python3 compare_to_ref.py params.json`
+* **Case study analysis**: `python3 case_study.py params.json`
 
 ## Parameters
 
 The `params.json` file contains all parameters that can be set by the user. These parameters are defined as follows: 
 
-* `models_to_train`: 
-* `feature_selection_models`: 
-* `tuned models`:
-* `use_tuned_params`: 
-* `best_estimator`:
-* `features`: 
-* `ml_algorithms`: 
-* `best_estimator`: 
-* `training_schema`:
+* `models_to_train`: list of models to train
+* `feature_selection_models`: list of models to perform feature selection for
+* `tuned models`: name of model that should be tuned for each algorithm
+* `use_tuned_params`: list of models that should use the same hyperparameters as the best estimator
+* `best_estimator`: name of joblib file used to store the pipeline of the best estimator
+* `features`: list of features used by each model 
+* `ml_algorithms`: list of machine learning algorithms to use during training (select from `rfr/gbr/svr`)
+* `training_schema`: database schema used to store the training data 
+* `training_tables`: database tables used to store the training data in the above schema
+* `case_study_schema`: database schema used to store the case study dataa
+* `case_study_tables`: database tables used to store the case study data in the above schema
+* `id_column`: name of the database column corresponding to the building id
+* `labels_column`: name of the database column corresponding to the training labels 
+* `text_columns`: names of the database columns corresponding to text/categorical features
+* `gemeente_codes`: 4-digit code of each municipality used during the analysis 
+* `lods`: levels of detail used to extract 3d geometric features
+* `distance_adjacent`: distance used to compute number of adjacent buildings 
+* `distance_neighbours`: list of distances used to compute number of neighbouring buildings
+* `ceiling_height`: average ceiling height used in height-based calculation of number of floors
+* `voxel_scales`: number of voxels to fit the length of each mesh for each lod (determines grid resolution)
+* `class_threshold`: error metrics are computed separately for buildings above (>) and below (<=) this number of floors
+* `plot_labels`: mapping from feature names to labels used in plots 
