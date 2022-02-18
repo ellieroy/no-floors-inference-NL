@@ -49,32 +49,40 @@ The conda environment used during the project can be recreated from the `environ
 
 ## Datasets
 
+This project relied on three main datasets: 
+
+* [BAG](https://data.overheid.nl/en/dataset/0ff83e1e-3db5-4975-b2c1-fbae6dd0d8e0) (04-2020)
+* [3D BAG](https://3dbag.nl/en/download) (v21.03.1)
+* [CBS wijken en buurten](https://data.overheid.nl/dataset/09f5479a-50f9-45ed-b727-91bf141d14f4) (2019)
+
+Additional data on building type was also obtained from [this](https://www.arcgis.com/home/item.html?id=fa01ef63321e482e9b2c55620e554ffc) dataset maintained by ESRI. 
+
 ## Usage
 
 ### Data preparation 
 
-* **Training data standardisation**: `get_train_data.py` is used to standardise the format of the training data on the number of floors obtained from different municipalities.
-* **Data retrieval**: `retrieve_data.py` is used to retrieve data from the datasets list above. This data is either used directly as features or required to compute other features (e.g. those based on building geometry). 
-* **Extract 2D features**: `extract_2d_features.py` is used to extract features from the 2D footprint geometry. 
-* **Extract 3D features**: `extract_3d_features.py` is used to extract features from the 3D building geometry.
-* **Data cleaning**: `clean_data.py` is used to perform the main data cleaning steps. 
-* **Extract reference model**: `get_ref_model.py` is used to calculate the number of floors using height- and area-based approaches to generate a reference model to compare the predictions to. 
+* **Training data standardisation**: `python3 get_train_data.py params.json` is used to standardise the format of the training data on the number of floors obtained from different municipalities.
+* **Data retrieval**: `python3 retrieve_data.py params.json` is used to retrieve data from the datasets list above. This data is either used directly as features or required to compute other features (e.g. those based on building geometry). 
+* **Extract 2D features**: `python3 extract_2d_features.py params.json` is used to extract features from the 2D footprint geometry. 
+* **Extract 3D features**: `python3 extract_3d_features.py params.json` is used to extract features from the 3D building geometry.
+* **Data cleaning**: `python3 clean_data.py params.json` is used to perform the main data cleaning steps. 
+* **Extract reference model**: `python3 get_ref_model.py params.json` is used to calculate the number of floors using height- and area-based approaches to generate a reference model to compare the predictions to. 
 
 All data preparation steps can be performed by running: `python3 data_prep.py params.json`. 
 
 ### Modelling and prediction 
 
-* **Training**: `python3 train_models.py params.json` is used to train the models listed by the `models_to_train` parameter (see section below)
-* **Feature selection**: `python3 select_features.py params.json` is used to select subsets of features using 3 different methods for the models listed by the `feature_selection_models` parameter (see section below)
-* **Hyperparameter tuning**: `python3 tune_models.py params.json` is used to tune the hyperparameters of the models listed by the `tuned models` parameter (see section below)
-* **Model evaluation**: `python3 test_models.py params.json` is used to make predictions on the test set and compute error metrics
+* **Training**: `python3 train_models.py params.json` is used to train the models listed by the `models_to_train` parameter (see section below). 
+* **Feature selection**: `python3 select_features.py params.json` is used to select different feature subsets for the models listed by the `feature_selection_models` parameter (see section below). 
+* **Hyperparameter tuning**: `python3 tune_models.py params.json` is used to tune the hyperparameters of the models listed by the `tuned models` parameter (see section below). 
+* **Model evaluation**: `python3 test_models.py params.json` is used to make predictions on the test set and compute error metrics. 
 
 ### Analysis 
-* **Visualise training data**: `python3 visualise_data.py params.json`
-* **Compute statistical measures**: `python3 compute_stats.py params.json`
-* **Analysis of results**: `python3 analyse_results.py params.json` is used to generate plots to analyse the gross errors and impact of rounding 
-* **Compare predictions to reference model**: `python3 compare_to_ref.py params.json`
-* **Case study analysis**: `python3 case_study.py params.json`
+* **Visualise training data**: `python3 visualise_data.py params.json` is used to generate different plots to visualise the training data. 
+* **Compute statistical measures**: `python3 compute_stats.py params.json` is used to compute the correlation coefficient and VIF score of each feature. 
+* **Analysis of results**: `python3 analyse_results.py params.json` is used to generate plots to analyse the gross errors and impact of rounding for the best predictive model. 
+* **Compare predictions to reference model**: `python3 compare_to_ref.py params.json` is used to compute error metrics to compare the performance of the best predictive model, reference model and a model that always predicts the mean number of floors. 
+* **Case study analysis**: `python3 case_study.py params.json` is used to predict the number of floors of (mixed-)residential buildings located in the municipalities listed by the `case_study_tables` parameter (see section below). 
 
 ## Parameters
 
@@ -95,7 +103,7 @@ The `params.json` file contains all parameters that can be set by the user. Thes
 * `labels_column`: name of the database column corresponding to the training labels 
 * `text_columns`: names of the database columns corresponding to text/categorical features
 * `gemeente_codes`: 4-digit code of each municipality used during the analysis 
-* `lods`: levels of detail used to extract 3d geometric features
+* `lods`: levels of detail used to extract 3D geometric features
 * `distance_adjacent`: distance used to compute number of adjacent buildings 
 * `distance_neighbours`: list of distances used to compute number of neighbouring buildings
 * `ceiling_height`: average ceiling height used in height-based calculation of number of floors
