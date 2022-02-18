@@ -49,7 +49,7 @@ The conda environment used during the project can be recreated from the `environ
 
 ## Datasets
 
-This project relied on three main datasets: 
+The implementation relies on three main datasets: 
 
 * [BAG](https://data.overheid.nl/en/dataset/0ff83e1e-3db5-4975-b2c1-fbae6dd0d8e0) (04-2020)
 * [3D BAG](https://3dbag.nl/en/download) (v21.03.1)
