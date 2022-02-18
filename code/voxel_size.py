@@ -162,7 +162,7 @@ def main(train_schema, train_tables, get_data, voxel_sizes, no_rows):
 
             # Check directory to save data exists
             if not directory_exists('./data/voxel_size'):
-                os.mkdir('./data/voxel_size')
+                os.makedirs('./data/voxel_size')
 
             df_out.to_csv('./data/voxel_size/lod{0}2_volumes.csv'.format(i))
 
@@ -219,7 +219,7 @@ def main(train_schema, train_tables, get_data, voxel_sizes, no_rows):
 
                 # Check directory to save plots exists
                 if not directory_exists('./plots/voxel_size'):
-                    os.mkdir('./plots/voxel_size')
+                    os.makedirs('./plots/voxel_size')
 
                 plt.savefig('plots/voxel_size/' + file_name[0:5] + '_voxelsize.png', dpi=300)
                 plt.close()
