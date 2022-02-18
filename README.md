@@ -28,6 +28,7 @@ An overview of the methdology is provided by the flowchart below:
 ## Dependencies 
 The code was written in `Python (v3.9.7)`.
 A `PostgreSQL (v10.19)` database extended with `PostGIS (v3.0.1)` was used to store the data used during the analysis. 
+
 The implementation depends on the following Python libraries: 
 
 * [geopandas v0.9.0](https://pypi.org/project/geopandas/0.9.0/)
@@ -107,6 +108,6 @@ The `params.json` file contains all parameters that can be set by the user. Thes
 * `distance_adjacent`: distance used to compute number of adjacent buildings 
 * `distance_neighbours`: list of distances used to compute number of neighbouring buildings
 * `ceiling_height`: average ceiling height used in height-based calculation of number of floors
-* `voxel_scales`: number of voxels to fit the length of each mesh for each lod (determines grid resolution)
+* `voxel_scales`: number of voxels to fit the length of each mesh for each LOD (determines grid resolution)
 * `class_threshold`: error metrics are computed separately for buildings above (>) and below (<=) this number of floors
-* `plot_labels`: mapping from feature names to labels used in plots 
+* `plot_labels`: text to use for plot labels corresponding to each database column name
